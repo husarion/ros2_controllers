@@ -269,7 +269,8 @@ TEST_F(IMUSensorBroadcasterTest, SensorNameNamespaced)
 
     imu_broadcaster_->get_node()->set_parameter({"sensor_name", sensor_name_});
     imu_broadcaster_->get_node()->set_parameter({"frame_id", frame_id_});
-    imu_broadcaster_->get_node()->set_parameter({"use_namespace_as_sensor_name_prefix", test_case.use_namespace_as_sensor_name_prefix});
+    imu_broadcaster_->get_node()->set_parameter(
+      {"use_namespace_as_sensor_name_prefix", test_case.use_namespace_as_sensor_name_prefix});
 
     ASSERT_EQ(imu_broadcaster_->on_configure(rclcpp_lifecycle::State()), NODE_SUCCESS);
 

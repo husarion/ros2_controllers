@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "test_diff_drive_controller.hpp"
-
 #include <gmock/gmock.h>
 
 #include <array>
@@ -37,6 +35,13 @@ using hardware_interface::LoanedCommandInterface;
 using hardware_interface::LoanedStateInterface;
 using lifecycle_msgs::msg::State;
 using testing::SizeIs;
+
+struct PrefixTestCase
+{
+  std::string tf_prefix;
+  std::string ns;
+  std::string result_prefix;
+};
 
 namespace
 {
