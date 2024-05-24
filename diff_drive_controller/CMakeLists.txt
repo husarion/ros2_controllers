@@ -53,7 +53,8 @@ if(BUILD_TESTING)
   find_package(ros2_control_test_assets REQUIRED)
 
   ament_add_gmock(test_diff_drive_controller
-    test/test_diff_drive_controller.cpp)
+    test/test_diff_drive_controller.cpp
+    ENV config_file=${CMAKE_CURRENT_SOURCE_DIR}/test/config/test_diff_drive_controller.yaml)
   target_link_libraries(test_diff_drive_controller
     diff_drive_controller
   )
@@ -68,9 +69,8 @@ if(BUILD_TESTING)
     tf2_msgs
   )
 
-  add_rostest_with_parameters_gmock(test_load_diff_drive_controller
+  ament_add_gmock(test_load_diff_drive_controller
     test/test_load_diff_drive_controller.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/test/config/test_diff_drive_controller.yaml
   )
   ament_target_dependencies(test_load_diff_drive_controller
     controller_manager
