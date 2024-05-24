@@ -36,13 +36,6 @@ using hardware_interface::LoanedStateInterface;
 using lifecycle_msgs::msg::State;
 using testing::SizeIs;
 
-struct PrefixTestCase
-{
-  std::string tf_prefix;
-  std::string ns;
-  std::string result_prefix;
-};
-
 namespace
 {
 const std::vector<std::string> left_wheel_names = {"left_wheel_joint"};
@@ -266,6 +259,13 @@ TEST_F(TestDiffDriveController, configure_succeeds_when_wheels_are_specified)
 
 TEST_F(TestDiffDriveController, TfPrefixNamespaceParams)
 {
+  struct PrefixTestCase
+  {
+    std::string tf_prefix;
+    std::string ns;
+    std::string result_prefix;
+  };
+
   std::string odom_id = "odom";
   std::string base_link_id = "base_link";
   const std::vector<PrefixTestCase> test_cases = {
