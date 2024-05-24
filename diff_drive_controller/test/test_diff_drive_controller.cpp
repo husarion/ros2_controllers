@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "test_diff_drive_controller.hpp"
-
 #include <gmock/gmock.h>
 
 #include <array>
