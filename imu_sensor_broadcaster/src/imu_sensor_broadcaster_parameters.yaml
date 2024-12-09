@@ -41,3 +41,8 @@ imu_sensor_broadcaster:
       fixed_size<>: [9],
     }
   }
+  use_namespace_as_sensor_name_prefix: {
+    type: bool,
+    default_value: false,
+    description: "If true the 'namespace/' is added to the sensor name which causes changes in interfaces names e. g. namespace/sensor_name/orientation.x",
+  }
