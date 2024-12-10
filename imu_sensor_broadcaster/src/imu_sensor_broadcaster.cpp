@@ -45,8 +45,32 @@ controller_interface::CallbackReturn IMUSensorBroadcaster::on_configure(
 {
   params_ = param_listener_->get_params();
 
+  // Append the tf prefix if there is one
+  std::string tf_prefix = "";
+  if (params_.tf_frame_prefix_enable)
+  {
+    if (params_.tf_frame_prefix != "")
+    {
+      tf_prefix = params_.tf_frame_prefix;
+    }
+    else
+    {
+      tf_prefix = std::string(get_node()->get_namespace());
+    }
+
+    // Make sure prefix does not start with '/' and always ends with '/'
+    if (tf_prefix.back() != '/')
+    {
+      tf_prefix = tf_prefix + "/";
+    }
+    if (tf_prefix.front() == '/')
+    {
+      tf_prefix.erase(0, 1);
+    }
+  }
+
   imu_sensor_ = std::make_unique<semantic_components::IMUSensor>(
-    semantic_components::IMUSensor(params_.sensor_name));
+    semantic_components::IMUSensor(tf_prefix + params_.sensor_name));
   try
   {
     // register ft sensor data publisher
@@ -63,7 +87,7 @@ controller_interface::CallbackReturn IMUSensorBroadcaster::on_configure(
   }
 
   realtime_publisher_->lock();
-  realtime_publisher_->msg_.header.frame_id = params_.frame_id;
+  realtime_publisher_->msg_.header.frame_id = tf_prefix + params_.frame_id;
   // convert double vector to fixed-size array in the message
   for (size_t i = 0; i < 9; ++i)
   {
